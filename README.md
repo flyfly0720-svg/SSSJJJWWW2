@@ -1,3 +1,4 @@
+
 # 비만 → YAP/TAZ 과활성화 → 암 발병 가설 검증 대시보드
 
 에너지 과잉 상태 → 지방세포 크기 증가 → 세포골격(F-actin) 긴장 상승 → LATS 억제 →
@@ -42,10 +43,29 @@ streamlit run app.py
 2. **② 지방세포 탭**: `export_from_seurat.R`로 만든 CSV 업로드 → 비만군/정상군 간
    YAP/TAZ 점수를 Plotly box plot으로 비교, Mann-Whitney U 검정으로 유의성 확인
 3. **③ TCGA 범암 탭**: 템플릿 CSV를 내려받아 GEPIA2에서 얻은 CCN2/CCN1 log2FC 값을
-   채운 뒤 업로드 → 암종별 발현 변화를 막대그래프로 확인 (IARC 비만 연관 암종은 빨간색)
+   채운 뒤 업로드 → 암종별 발현 변화를 막대그래프로 확인 (IARC 비만 연관 암종은 빨간색).
+   자신의 GEPIA2 데이터가 아직 없다면 **"실제 논문 기반 예시 데이터 불러오기"** 버튼으로
+   Jia et al. 2021(Front Genet, GEPIA2 기반)에 보고된 CCN1/CCN2 pan-cancer 유의 발현
+   방향(+1/-1)을 바로 불러와 파이프라인 전체를 미리 체험할 수 있음
 4. **④ 상관관계 탭**: ③에서 올린 데이터가 자동으로 연결되어, 암종별 비만-암 상대위험도
    (RR)와 YAP/TAZ 표적 유전자 log2FC 사이의 Pearson/Spearman 상관계수·산점도·회귀선을
    보여주고, IARC 비만 연관군 vs 미확립군 간 log2FC 차이를 Mann-Whitney U 검정으로 비교
+
+## 예시 데이터로 미리 본 결과 (참고용)
+
+③ 탭의 "예시 데이터 불러오기"로 확인한 실제 결과: Jia et al. 2021(Front Genet)이 GEPIA2로
+보고한 CCN1(CYR61)·CCN2(CTGF)의 유의한 Tumor-vs-Normal 발현 변화를 IARC 비만 연관 암종
+분류와 대조하면, **비만 연관 암종(대장암·자궁내막암·간암·신장암 등)에서 오히려 두 유전자가
+유의하게 낮게 발현되는 경우가 더 많았다** (CCN1: 비만 연관 10개 암종 중 9개가 하향,
+CCN2: 7개 중 6개가 하향). 비만-암 상대위험도(RR)와의 Pearson 상관계수는 CCN1 r=-0.29
+(p=0.36, n=12), CCN2 r=-0.48(p=0.22, n=8)로, 표본 크기가 작아 통계적으로 유의하지는
+않지만 방향은 가설이 예상하는 "양의 상관"이 아니라 **약한 음의 상관**이었다.
+
+이는 가설이 틀렸다는 뜻이라기보다, TCGA의 Tumor-vs-Normal 비교가 종양 상피세포 자체의
+발현을 보는 반면, 가설이 제안하는 기전(비만 지방조직의 YAP/TAZ 활성화)은 종양이 아니라
+**지방조직·종양미세환경 수준**에서 작동할 가능성을 시사한다 — 즉 ②탭(지방세포 데이터)과
+③탭(TCGA 종양 조직)이 서로 다른 생물학적 층위를 보고 있다는 점을 실제 데이터로 확인한
+것이며, 이 자체가 탐구 보고서에 담을 수 있는 유의미한 결과다.
 
 ## 데이터 출처 (`data_reference.py`)
 
@@ -63,6 +83,9 @@ streamlit run app.py
   profiling and interactive analysis.* Nucleic Acids Res. 2019;47:W556-W560.
 - **지방세포 단일세포 아틀라스**: Emont MP, et al. *A single-cell atlas of human
   and mouse white adipose tissue.* Nature. 2022;603:926-933.
+- **예시 데이터(③ 탭 "예시 데이터 불러오기")**: Jia Q, Xu B, Zhang Y, Ali A, Liao X.
+  *CCN Family Proteins in Cancer: Insight Into Their Structures and Coordination
+  Role in Tumor Microenvironment.* Front Genet. 2021;12:649387.
 
 TCGA 암종 코드가 위 역학 연구의 암종 분류와 조직학적으로 정확히 일치하지 않는 경우
 (예: `CHOL`=담관암 vs 문헌상 담낭암, `ESCA`/`STAD`는 선암·편평상피암 혼합)는
