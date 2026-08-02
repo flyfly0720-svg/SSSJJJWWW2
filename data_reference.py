@@ -1,4 +1,5 @@
 
+
 # -*- coding: utf-8 -*-
 """
 data_reference.py
@@ -139,6 +140,23 @@ YAP_TARGET_GENE_ALIASES = {"CCN2": "CTGF", "CCN1": "CYR61"}
 
 # 3) 세포골격 긴장(F-actin stress fiber) 관련 유전자
 TENSION_GENES = ["ACTA2", "MYH9", "ROCK1", "RHOA", "FLNA"]
+
+# 4) 실제 발표된 GEPIA2 pan-cancer 분석 결과 (데모/미리보기용)
+#    출처: Jia Q, Xu B, Zhang Y, Ali A, Liao X. "CCN Family Proteins in Cancer: Insight
+#    Into Their Structures and Coordination Role in Tumor Microenvironment." Front Genet.
+#    2021;12:649387. — GEPIA2(TCGA/GTEx)로 32개 암종에서 CCN1(CYR61)·CCN2(CTGF)의
+#    Tumor vs Normal 유의 발현 변화(p<0.05)를 분석한 결과를 그대로 인용.
+#    주의: 이 값은 연속형 log2FC가 아니라 '유의하게 증가(+1)/감소(-1)/유의하지 않음(0)'을
+#    나타내는 방향성 지표이며, 정확한 수치가 아니라 데모(예시) 용도임을 앱에도 명시한다.
+CCN1_SIG_UP = ["DLBC", "GBM", "PAAD", "THYM"]
+CCN1_SIG_DOWN = ["ACC", "BLCA", "BRCA", "CESC", "COAD", "KICH", "KIRP", "LAML",
+                  "LIHC", "LUAD", "LUSC", "READ", "SKCM", "UCEC"]
+
+CCN2_SIG_UP = ["DLBC", "GBM", "LGG", "PAAD", "THYM"]
+CCN2_SIG_DOWN = ["ACC", "UCS", "BLCA", "CESC", "ESCA", "KICH", "KIRC", "KIRP",
+                  "LUAD", "LUSC", "SKCM"]
+
+DEMO_SOURCE = "Jia Q, et al. CCN Family Proteins in Cancer. Front Genet. 2021;12:649387 (GEPIA2 기반)"
 
 CITATIONS = [
     "Lauby-Secretan B, et al. Body Fatness and Cancer — Viewpoint of the IARC Working Group. N Engl J Med. 2016;375:794-798.",
